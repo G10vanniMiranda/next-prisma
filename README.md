@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+#### Criando App Nexts / Prisma 5 passo ao sucesso
 
-## Getting Started
+* 1 Criar o projeto NextJS 15
+``
+npx create-next-app@latest app3´
+``
 
-First, run the development server:
+* 2 Instalar o Prisma ORM
+``
+npm i prisma
+``
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+*3 Iniciar o serviço do Prisma
+``
+npx prisma init --datasource-provider sqlite
+``
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+* 4 Criar os Modelos do Prisma ORM
+``
+model Produto{
+  id        Int @id @default(autoincrement())
+  nome      String @unique
+  descricao String 
+  preco     Float
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+  @@map("produto")
+}
+``
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+* 5 Rodar as migration
+``
+npx prisma migrate dev
+``
